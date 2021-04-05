@@ -3,6 +3,7 @@ class Quadrado:
         self.lado = lado
 
     def perimetro(self):
+        """Essa função calcula o perimetro de um quadrado (isso é um doc str)"""
         return 4 * self.lado
 
     def area(self):

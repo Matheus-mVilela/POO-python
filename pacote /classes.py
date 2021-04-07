@@ -1,4 +1,4 @@
-from pacote.importar import Quadrado
+from importar import Quadrado
 
 
 class Ponto:

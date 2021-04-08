@@ -48,3 +48,33 @@ cir = Circulo(3)
 print('Area: %f' % cir.area())
 print('Perimetro: %f' % cir.perimetro())
 cir.desc()
+
+
+class AudioFile:
+    def __init__(self, filename):
+
+        if not filename.endswith(self.txt):
+            raise Exception('Formato nao encontrado')
+
+        self.filename = filename
+
+
+class Mp3File(AudioFile):
+    ext = 'mp3'
+
+    def play(self):
+        print('Tocando mp3')
+
+
+class WavFile(AudioFile):
+    ext = 'wav'
+
+    def play(self):
+        print('Tocando wav')
+
+
+class OggFile(AudioFile):
+    ext = 'ogg'
+
+    def play(self):
+        print('Tocando ogg')

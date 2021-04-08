@@ -37,7 +37,8 @@ class Gerente(Funcionario):
 
 # Herança multipla
 class Relogio:
-    def __init__(self, hora, minu, seg):
+    def __init__(self, hora, minu, seg, *args, **kwargs):
+        super(Relogio, self).__init__(*args, **kwargs)
         self.hora = hora
         self.minu = minu
         self.seg = seg
@@ -48,7 +49,11 @@ class Relogio:
         self.seg = seg
 
     def __str__(self):
-        return '{0:02d}:{1:02d}:{2:02d}'.format(self.hora, self.minu, self.seg)
+        return (
+            '{0:02d}:{1:02d}:{2:02d}'.format(self.hora, self.minu, self.seg)
+            + ','
+            + super(Relogio, self).__str__()
+        )
 
     def tick(self):
         if self.seg == 59:
@@ -75,7 +80,8 @@ class Calendario:
 
     meses = (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
 
-    def __init__(self, dia, mes, ano):
+    def __init__(self, dia, mes, ano, *args, **kwargs):
+        super(Calendario, self).__init__(*args, **kwargs)
         self.dia = dia
         self.mes = mes
         self.ano = ano
@@ -108,13 +114,14 @@ cal.dia_seg()
 print(cal)
 
 
-class CalendarioRelogio(Calendario, Relogio):
-    def __init__(self, dia, mes, ano, hora, minu, seg):
-        Calendario.__init__(self, dia, mes, ano)
-        Relogio.__init__(self, hora, minu, seg)
+class CalendarioRelogio(Relogio, Calendario):
+    def __init__(self, hora, minu, seg, dia, mes, ano):
+        super(CalendarioRelogio, self).__init__(
+            hora=hora, minu=minu, seg=seg, dia=dia, mes=mes, ano=ano
+        )
 
     def __str__(self):
-        return Calendario.__str__(self) + ',' + Relogio.__str__(self)
+        return super(CalendarioRelogio, self).__str__()
 
     def tick(self):
         hora_anterior = self.hora
@@ -123,8 +130,10 @@ class CalendarioRelogio(Calendario, Relogio):
             self.dia_seg()
 
 
-cal_rel = CalendarioRelogio(31, 12, 2020, 23, 59, 59)
+cal_rel = CalendarioRelogio(10, 10, 10, 10, 10, 2010)
 print(cal_rel)
 cal_rel.tick()
 print(cal_rel)
+
+print(CalendarioRelogio.mro())
 

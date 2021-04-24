@@ -2,13 +2,12 @@ import unittest
 
 
 class NumerosRomanos:
-    def __init__(self, numeros_romanos):
-        self.numeros_romanos = numeros_romanos
+    def __init__(self):
         self.digito = {'M': 1000, 'D': 500, 'C': 100, 'L': 50, 'X': 5, 'I': 1}
 
-    def converter_para_decimal(self):
+    def converter_para_decimal(self, numeros_romanos):
         val = 0
-        for char in self.numeros_romanos:
+        for char in numeros_romanos:
             val += self.digito[char]
 
         return val
@@ -19,36 +18,32 @@ class NumerosRomanos:
 
 
 class TestNumerosRomanos(unittest.TestCase):
+    def setUp(self):
+        self.cnr = NumerosRomanos()
+
     def test_mil(self):
-        value = NumerosRomanos('M')
-        self.assertEqual(1000, value.converter_para_decimal())
+        self.assertEqual(1000, self.cnr.converter_para_decimal('M'))
 
     def test_quinhentos(self):
-        value = NumerosRomanos('D')
-        self.assertEqual(500, value.converter_para_decimal())
+        self.assertEqual(500, self.cnr.converter_para_decimal('D'))
 
     def test_cem(self):
-        value = NumerosRomanos('C')
-        self.assertEqual(100, value.converter_para_decimal())
+        self.assertEqual(100, self.cnr.converter_para_decimal('C'))
 
     def test_cinquenta(self):
-        value = NumerosRomanos('L')
-        self.assertEqual(50, value.converter_para_decimal())
+        self.assertEqual(50, self.cnr.converter_para_decimal('L'))
 
     def test_cinco(self):
-        value = NumerosRomanos('X')
-        self.assertEqual(5, value.converter_para_decimal())
+        self.assertEqual(5, self.cnr.converter_para_decimal('X'))
 
     def test_um(self):
-        value = NumerosRomanos('I')
-        self.assertEqual(1, value.converter_para_decimal())
+        self.assertEqual(1, self.cnr.converter_para_decimal('I'))
 
     # assertTrue e assertFalse verifica se se os valores passados na def
     # converter_para_deimal são iguais 0 e maior que 0 respectivamente.
     def test_vazio(self):
-        value = NumerosRomanos('')
-        self.assertTrue(value.converter_para_decimal() == 0)
-        self.assertFalse(value.converter_para_decimal() > 0)
+        self.assertTrue(self.cnr.converter_para_decimal() == 0)
+        self.assertFalse(self.cnr.converter_para_decimal() > 0)
 
 
 if __name__ == '__main__':
